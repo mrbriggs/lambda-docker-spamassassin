@@ -86,7 +86,8 @@ FROM python-image AS spamassassin-image
     # echo "dcc_home /tmp/var/dcc" >> /etc/mail/spamassassin/local.cf && \
     # echo "dcc_timeout 8" >> /etc/mail/spamassassin/local.cf
 
-  RUN usermod -s /usr/bin/bash $USERNAME
+  RUN usermod -s /bin/sh $USERNAME
+
   RUN chown -R $USERNAME /var/lib/spamassassin && \
     su $USERNAME bash -c "\
       cd ~$USERNAME && \
