@@ -1,6 +1,7 @@
 ARG FUNCTION_DIR="/home/app/"
-ARG RUNTIME_VERSION="3.9"
+ARG RUNTIME_VERSION="3.10.2"
 ARG DISTRO_VERSION="slim"
+ARG DEBIAN_VERSION="bullseye"
 ARG DCC_VERSION=2.3.167
 ARG DCC_SHA=e5da87aca80ddc8bc52fa93869576a2afaf0c1e563e3f97dee6e6531690fbad5
 ARG DCC_BUILD_DIR="/opt/dcc"
@@ -12,12 +13,12 @@ ARG USERNAME=debian-spamd
 ARG EXTRA_OPTIONS=--nouser-config
 ARG PYZOR_SITE=public.pyzor.org:24441
 
-FROM public.ecr.aws/docker/library/python:${RUNTIME_VERSION}-${DISTRO_VERSION}-buster AS python-buster
+FROM public.ecr.aws/docker/library/python:${RUNTIME_VERSION}-${DISTRO_VERSION}-${DEBIAN_VERSION} AS python-image
   ENV DEBIAN_FRONTEND=noninteractive \
     TZ=UTC
 
 # Build Image
-FROM python-buster AS build-image
+FROM python-image AS build-image
   RUN apt-get -yq update
   RUN apt-get -y --no-install-recommends install apt-utils
   RUN apt-get -y --no-install-recommends install \
