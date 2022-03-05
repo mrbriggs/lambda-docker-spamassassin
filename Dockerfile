@@ -102,7 +102,6 @@ FROM python-image AS spamassassin-image
     chown debian-spamd:debian-spamd /etc/spamassassin/sa-update-keys && \
     chown -R debian-spamd:debian-spamd /var/lib/spamassassin/.pyzor
   RUN su $USERNAME bash -c "\
-    /usr/bin/sa-compile && \
     /usr/bin/sa-update -v && \
     /usr/bin/sa-update --nogpg --channel sa.zmi.at"
   COPY local.cf /etc/spamassassin/
