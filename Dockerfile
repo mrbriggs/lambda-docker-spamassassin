@@ -6,7 +6,7 @@ ARG DCC_SHA=e5da87aca80ddc8bc52fa93869576a2afaf0c1e563e3f97dee6e6531690fbad5
 ARG DCC_BUILD_DIR="/opt/dcc"
 ARG RIC_BUILD_DIR="/opt/ric"
 ARG RIE_EXE="/opt/rie/aws-lambda-rie"
-ARG SPAMD_VERSION=3.4.2-1+deb10u2
+#ARG SPAMD_VERSION=3.4.2-1+deb10u2
 ARG SPAMD_UID=2022
 ARG USERNAME=debian-spamd
 ARG EXTRA_OPTIONS=--nouser-config
@@ -74,7 +74,7 @@ FROM python-buster AS spamassassin-buster
 
   RUN apt-get -yq update && \
     apt-get -yq --no-install-recommends install \
-    pyzor razor spamassassin=$SPAMD_VERSION \
+    pyzor razor spamassassin \
     gpg gpg-agent && \
     usermod --uid $SPAMD_UID $USERNAME && \
     mv /etc/mail/spamassassin/local.cf /etc/mail/spamassassin/local.cf-dist && \
