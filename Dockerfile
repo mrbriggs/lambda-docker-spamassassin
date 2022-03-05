@@ -73,9 +73,10 @@ FROM python-image AS spamassassin-image
   # COPY --from=dcc-build-image ${DCC_BUILD_DIR}/usr/local/bin/ /usr/local/bin/
   # COPY --from=dcc-build-image ${DCC_BUILD_DIR}/var/dcc/ /var/dcc/
 
+# pyzor
   RUN apt-get -yq update && \
     apt-get -yq --no-install-recommends install \
-    pyzor razor spamassassin \
+    razor spamassassin \
     gpg gpg-agent && \
     usermod --uid $SPAMD_UID $USERNAME && \
     mv /etc/mail/spamassassin/local.cf /etc/mail/spamassassin/local.cf-dist && \
@@ -95,12 +96,12 @@ FROM python-image AS spamassassin-image
       razor-admin -discover && \
       razor-admin -create -conf=razor-agent.conf && \
       razor-admin -register -l && \
-      echo $PYZOR_SITE > .pyzor/servers && \
-      chmod g-rx,o-rx .pyzor .pyzor/servers"
+#      echo $PYZOR_SITE > .pyzor/servers && \
+#      chmod g-rx,o-rx .pyzor .pyzor/servers"
   RUN mkdir -p /etc/spamassassin/sa-update-keys && \
     chmod 700 /etc/spamassassin/sa-update-keys && \
     chown debian-spamd:debian-spamd /etc/spamassassin/sa-update-keys && \
-    chown -R debian-spamd:debian-spamd /var/lib/spamassassin/.pyzor
+#    chown -R debian-spamd:debian-spamd /var/lib/spamassassin/.pyzor
   RUN su $USERNAME bash -c "\
     /usr/bin/sa-update -v && \
     /usr/bin/sa-update --nogpg --channel sa.zmi.at"
