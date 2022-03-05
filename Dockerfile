@@ -87,7 +87,7 @@ FROM python-image AS spamassassin-image
     # echo "dcc_timeout 8" >> /etc/mail/spamassassin/local.cf
 
   RUN chown -R $USERNAME /var/lib/spamassassin && \
-    su $USERNAME bash -c "\
+    sudo -u $USERNAME bash -c "\
       cd ~$USERNAME && \
       mkdir -p .razor .spamassassin .pyzor && \
       razor-admin -discover && \
@@ -99,7 +99,7 @@ FROM python-image AS spamassassin-image
     chmod 700 /etc/spamassassin/sa-update-keys && \
     chown debian-spamd:debian-spamd /etc/spamassassin/sa-update-keys && \
     chown -R debian-spamd:debian-spamd /var/lib/spamassassin/.pyzor
-  RUN su $USERNAME bash -c "\
+  RUN sudo -u $USERNAME bash -c "\
     /usr/bin/sa-update && \
     /usr/bin/sa-update --nogpg --channel sa.zmi.at"
   COPY local.cf /etc/spamassassin/
