@@ -62,7 +62,7 @@ FROM build-image as lambda-build-image
   RUN python${RUNTIME_VERSION} -m pip install awslambdaric --target ${RIC_BUILD_DIR}
   ADD https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie ${RIE_EXE}
 
-FROM python-buster AS spamassassin-buster
+FROM python-image AS spamassassin-image
   ARG SPAMD_VERSION
   ARG SPAMD_UID
   ARG USERNAME
