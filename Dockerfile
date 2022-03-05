@@ -104,7 +104,7 @@ FROM python-image AS spamassassin-image
     /usr/bin/sa-update --nogpg --channel sa.zmi.at"
   COPY local.cf /etc/spamassassin/
 
-FROM spamassassin-buster AS lambda-spamassassin
+FROM spamassassin-image AS lambda-spamassassin
   ARG FUNCTION_DIR
   ARG RIC_BUILD_DIR
   ARG RIE_EXE
