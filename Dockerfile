@@ -12,7 +12,7 @@ ARG USERNAME=debian-spamd
 ARG EXTRA_OPTIONS=--nouser-config
 ARG PYZOR_SITE=public.pyzor.org:24441
 
-FROM python:${RUNTIME_VERSION}-${DISTRO_VERSION}-buster AS python-buster
+FROM public.ecr.aws/docker/library/python:${RUNTIME_VERSION}-${DISTRO_VERSION}-buster AS python-buster
   ENV DEBIAN_FRONTEND=noninteractive \
     TZ=UTC
 
