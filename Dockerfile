@@ -73,9 +73,9 @@ FROM python-image AS spamassassin-image
   # COPY --from=dcc-build-image ${DCC_BUILD_DIR}/usr/local/bin/ /usr/local/bin/
   # COPY --from=dcc-build-image ${DCC_BUILD_DIR}/var/dcc/ /var/dcc/
 
-# pyzor
   RUN apt-get -yq update && \
-    apt-get -yq --no-install-recommends install razor spamassassin gpg gpg-agent && \
+    apt-get -yq --no-install-recommends install spamassassin gpg gpg-agent \
+    pyzor razor && \
     usermod --uid $SPAMD_UID $USERNAME && \
     mv /etc/mail/spamassassin/local.cf /etc/mail/spamassassin/local.cf-dist && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/log/* && \

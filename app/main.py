@@ -13,7 +13,7 @@ def handler(event, context):
         f.write(event['body'])
         f.close()
 
-        stream = os.system('/usr/bin/spamassassin -x < /tmp/msg > /tmp/out')
+        stream = os.system('/usr/bin/spamassassin -L -x < /tmp/msg > /tmp/out')
         f = open('/tmp/out', 'r')
         data = email.message_from_file(f)
         f.close()
